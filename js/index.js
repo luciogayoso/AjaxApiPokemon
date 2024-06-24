@@ -1,4 +1,4 @@
-function solicitudAJAX(params) {
+function solicitudAJAX() {
     var url = "https://pokeapi.co/api/v2/pokemon/";
     let tarjetas = document.querySelector("#nPokemon");
     var objXMLHttpRequest = new XMLHttpRequest();
@@ -7,6 +7,9 @@ function solicitudAJAX(params) {
       if (objXMLHttpRequest.readyState === 4) {
         if (objXMLHttpRequest.status === 200) {
           let json = JSON.parse(objXMLHttpRequest.responseText);
+          console.dir(json);
+
+          
           tarjetas.data = json;
           for (let i = 0; i < json.results.length; i++) {
             buscarPorURL(json.results[i].url);
@@ -23,9 +26,10 @@ function solicitudAJAX(params) {
   
   function buscarPorURL(urlPokemon) {
     var objXMLHttpRequest = new XMLHttpRequest();
-    let div = document.querySelector("#ConteinerCard");
+    
   
     objXMLHttpRequest.onreadystatechange = function () {
+      let div = document.querySelector("#ConteinerCard");
       if (objXMLHttpRequest.readyState === 4) {
         if (objXMLHttpRequest.status === 200) {
           let json = JSON.parse(objXMLHttpRequest.responseText);
@@ -45,7 +49,7 @@ function solicitudAJAX(params) {
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
   </div>`;
-          div.appendChild(html);
+          div.innerHTML =html;
           console.log(div);
         } else {
           alert("Error Code: " + objXMLHttpRequest.status);
